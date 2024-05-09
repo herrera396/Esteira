@@ -3,4 +3,4 @@ WORKDIR /app-node
 COPY . .
 RUN npm install
 ENTRYPOINT npm start
-EXPOSE 3000
+EXPOSE 3009
