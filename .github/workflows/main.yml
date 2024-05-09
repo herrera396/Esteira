@@ -1,0 +1,40 @@
+name: Template
+
+on:
+    push:
+        branches: [dev]
+
+env:
+    DOCKERHUB_USER: ${{secrets.DOCKERHUB_USER}}
+    DOCKERHUB_PWD: ${{secrets.DOCKERHUB_PWD}}
+    AWS_REGION: ${{ vars.AWS_REGION }}
+    CONTAINER_NAME: ${{ vars.CONTAINER_NAME }}
+    ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+    ECS_CLUSTER: ${{ vars.ECS_CLUSTER }}
+    ECS_SERVICE: ${{ vars.ECS_SERVICE }}
+    ECS_TASK_DEFINITION: ${{ vars.ECS_TASK_DEFINITION }}
+
+permissions:
+  contents: read
+
+jobs:
+    checkout:
+      name: Checkout
+      runs-on: self-hosted
+      steps: 
+        - name: Checkout other repository
+          uses: actions/checkout@v3
+
+    build-deploy:
+        needs: checkout
+        uses: herrera396/Libs-pipeline/.github/workflows/build-deploy.yml@main
+      
+    validate-sa3:
+        needs: build-deploy
+        if: always()
+        uses: herrera396/Libs-pipeline/.github/workflows/validate-sa3.yml@main
+    
+    cleanup-workspace:
+        needs: validate-sa3
+        if: always()
+        uses: herrera396/Libs-pipeline/.github/workflows/cleanup-workspace.yml@main
