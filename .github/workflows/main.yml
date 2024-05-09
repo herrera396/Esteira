@@ -2,7 +2,7 @@ name: Template
 
 on:
     push:
-        branches: [dev]
+        branches: [main]
 
 env:
     DOCKERHUB_USER: ${{secrets.DOCKERHUB_USER}}
