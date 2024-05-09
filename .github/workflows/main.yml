@@ -5,8 +5,6 @@ on:
         branches: [main]
 
 env:
-    DOCKERHUB_USER: ${{secrets.DOCKERHUB_USER}}
-    DOCKERHUB_PWD: ${{secrets.DOCKERHUB_PWD}}
     AWS_REGION: ${{ vars.AWS_REGION }}
     CONTAINER_NAME: ${{ vars.CONTAINER_NAME }}
     ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
