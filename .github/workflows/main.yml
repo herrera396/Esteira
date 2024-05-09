@@ -2,7 +2,7 @@ name: Template
 
 on:
     push:
-        branches: [main]
+        branches: [main, prd]
 
 env:
     AWS_REGION: ${{ vars.AWS_REGION }}
